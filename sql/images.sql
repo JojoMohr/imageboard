@@ -9,6 +9,10 @@ CREATE TABLE images(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- INSERT INTO images (url, username,title,description) VALUES (
+    
+-- )
+
 INSERT INTO images (url, username, title, description) VALUES (
     'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
     'funkychicken',
@@ -28,4 +32,13 @@ INSERT INTO images (url, username, title, description) VALUES (
     'discoduck',
     'To be or not to be',
     'That is the question.'
+);
+
+
+
+INSERT INTO logo (url, username, title, description) VALUES (
+    '/Users/johannesmohr/Desktop/Spiced/aspartame-imageboard/logo.jpg',
+    'Jojo',
+    'Logo',
+    'This is the FIntergram Logo'
 );

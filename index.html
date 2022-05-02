@@ -1,10 +1,57 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Finstergram</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
+    <div id="main">
+
+        <div id="uploader">
+            <form @submit="handleSubmit">
+                <!-- Also available: -->
+                <!-- <form @submit.prevent.default="handleSubmit">
+       Bind the input value to the Vue instance with `v-model` -->
+                <input name="username" placeholder="Username" v-model="username" @change="handleFileChange" />
+
+                <input name="title" placeholder="Title" v-model="title" @change="handleFileChange" />
+
+                <input name="description" placeholder="Describe your Image" v-model="description" @change="handleFileChange" />
+                <!-- TODO: Add other needed fields here -->
+                <!-- Handle file changes by providing a method to `@change` -->
+                <input name="image" type="file" accept="image/*" @change="handleFileChange" />
+                <button>Submit</button>
+            </form>
+        </div>
+
+
+
+
+
+
+        <header>
+            <div id="logo">
+                <!-- <img v-for="image in logo" :src="image.url" alt="Logo"> -->
+                <h1>Finstergram</h1>
+                <h2>Latest Images</h2>
+            </div>
+        </header>
+
+
+        <div id="images">
+            <div id="image" v-for="image in images" :src="image.url" :alt="image.title">
+                <div id="border">
+                    <img :src="image.url" alt="{{image.description}}">
+                    <p id="title" class="hidden">{{image.title}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
+
 </html>

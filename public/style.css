@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: pink;
+}
+
+#images {
+    display: flex;
+    gap: 2%;
+    justify-content: space-around;
+}
+
+
+/* #image {
+    object-fit: cover;
+} */
+
+#border {
+    border: white 2px solid;
+    border-radius: 5%;
+}
+
+img {
+    height: 300px;
+    width: 400px;
+    padding: 10px;
+    height: 300px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 5%;
+}
+
+#title {
+    padding-left: 20px;
+}
+
+#uploader {
+    display: flex;
+    justify-content: center;
+}
