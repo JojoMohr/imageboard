@@ -1,3 +1,6 @@
+import commentsComponent from "./comments-component.js"
+
+
 const myComponent = {
     props: ["selected-image"],
     data() {
@@ -8,6 +11,7 @@ const myComponent = {
             description: "",
         };
     },
+
     mounted() {
         const url = "/image/" + this.selectedImage;
         console.log("URL: ", url)
@@ -25,6 +29,10 @@ const myComponent = {
                 console.log(error)
             })
     },
+    components: {
+        "comments-component": commentsComponent
+
+    },
     methods: {
         onCloseClick() {
             console.log("CLOSE COMPONENT")
@@ -34,16 +42,17 @@ const myComponent = {
     },
     template: `
         <div class="popupImageBorder">    </div>
+        <div class="popupImage ">
+            <div id="closePopup"   v-if="selectedImage" :selected-image="selectedImage" @click="onCloseClick">🅧</div>
+          
+            <img :src="url" alt="Selected_image" @click="onCloseClick">
+            <p id="title" class="hidden">{{title}}</p>
+            <p id="description" class="hidden">{{description}}</p>
+            <p id="username" class="hidden">{{username}}</p>
+             <comments-component></comments-component>
 
-
-    <div class="popupImage ">
-    <div id="closePopup"   v-if="selectedImage" :selected-image="selectedImage" @click="onCloseClick">🅧</div>
-        <img :src="url" alt="Selected_image" @click="onCloseClick">
-        <p id="title" class="hidden">{{title}}</p>
-        <p id="description" class="hidden">{{description}}</p>
-        <p id="username" class="hidden">{{username}}</p>
         </div>
-
+        
     `
 
 };
@@ -51,3 +60,5 @@ const myComponent = {
 export default myComponent
 
 // <img src="{{selectedImage.url}}" alt="Selected image">
+
+//

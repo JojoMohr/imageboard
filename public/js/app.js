@@ -1,6 +1,5 @@
 import * as Vue from './vue.js';
 import myComponent from "./my-component.js"
-import commentsComponent from "./comments-component.js"
 
 const app = Vue.createApp({
     data() {
@@ -27,7 +26,6 @@ const app = Vue.createApp({
     }, // CLOSES MOUNTED 
     components: {
         'my-component': myComponent,
-        "comments-components": commentsComponent
     },
     methods: {
         handleSubmit(e) {

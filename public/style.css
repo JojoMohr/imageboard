@@ -94,3 +94,8 @@
         button {
             height: 35px;
         }
+        
+        #allComments {
+            height: 40%;
+            border: 2px solid black;
+        }

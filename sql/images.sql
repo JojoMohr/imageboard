@@ -9,6 +9,23 @@ CREATE TABLE images(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE comments(
+    id SERIAL PRIMARY KEY,
+    comment VARCHAR NOT NULL,
+    username VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+/*
+Tables
+
+You'll need a new comments table with the following columns
+comment text
+username
+id of the image the comment belongs to
+timestamp to capture when comment was created*/
 -- INSERT INTO images (url, username,title,description) VALUES (
     
 -- )
@@ -34,11 +51,26 @@ INSERT INTO images (url, username, title, description) VALUES (
     'That is the question.'
 );
 
-
-
-INSERT INTO logo (url, username, title, description) VALUES (
-    '/Users/johannesmohr/Desktop/Spiced/aspartame-imageboard/logo.jpg',
-    'Jojo',
-    'Logo',
-    'This is the FIntergram Logo'
+INSERT INTO images (url, username, title, description) VALUES (
+    'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
+    'funkychicken',
+    'Welcome to Spiced and the Future!',
+    'This photo brings back so many great memories.'
 );
+
+INSERT INTO images (url, username, title, description) VALUES (
+    'https://s3.amazonaws.com/imageboard/wg8d94G_HrWdq7bU_2wT6Y6F3zrX-kej.jpg',
+    'discoduck',
+    'Elvis',
+    'We can''t go on together with suspicious minds.'
+);
+
+INSERT INTO images (url, username, title, description) VALUES (
+    'https://s3.amazonaws.com/imageboard/XCv4AwJdm6QuzjenFPKJocpipRNNMwze.jpg',
+    'discoduck',
+    'To be or not to be',
+    'That is the question.'
+);
+
+
+
