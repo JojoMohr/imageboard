@@ -48,8 +48,8 @@ const myComponent = {
             <img :src="url" alt="Selected_image" @click="onCloseClick">
             <p id="title" class="hidden">{{title}}</p>
             <p id="description" class="hidden">{{description}}</p>
-            <p id="username" class="hidden">{{username}}</p>
-             <comments-component></comments-component>
+            <p v-for="comment in comments" id="username" class="hidden">{{username}}</p>
+             <comments-component :id="selectedImage"></comments-component>
 
         </div>
         

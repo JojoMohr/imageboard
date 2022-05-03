@@ -16,7 +16,7 @@ const app = Vue.createApp({
 
     mounted() {
         fetch("/api/images").then((result) => {
-            console.log("RESUUUUKLTS", result)
+            console.log("RESULTS", result)
             return result.json()
         }).then((response) => {
             console.log("RESPONSE", response)
@@ -64,7 +64,8 @@ const app = Vue.createApp({
             this.selectedImage = null
             console.log("CLOSE app")
 
-        }
+        },
+
     },
 
 });

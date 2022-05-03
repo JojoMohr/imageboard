@@ -5,39 +5,62 @@ const commentsComponent = {
             allComments: [],
             username: "",
             comment: "",
-            submitComment: ""
+            image_id: ""
+                //submitComment: ""
         }
     },
+
+    // make an HTTP request to retrieve  all the comments
+    // made about that particular image.
     mounted() {
-        // make an HTTP request to retrieve  all the comments
-        // made about that particular image.
+        fetch("/comments/" + this.id).then((allComments) =>
+            allComments.json()
+        ).then((allComments) => {
+            console.log("ALL COMMENTS", allComments)
+            console.log("ALL THIS", this)
+            this.allComments = allComments;
+        });
 
     },
     methods: {
-        /* you'll need a click handler for the submit button
-            - when you click submit, you'll make a POST request to insert the new comment in the database
-            - do NOT use formData! (this is only necessary when you're sending a file along to the server). 
-                Instead, pass a body property as part of the 2nd argument to fetch.
-            - upon success, you new comment should be added into the array of comments 
-                (this is what you retrieved when your comment component mounted).
-        */
-        submitComment() {
-            console.log("Comment submitted")
+        addComment() {
+            console.log("USERNAME:", this.username);
+            console.log('COMMENT: ', this.comment)
+            console.log('COMMENT: ', this.id)
+
+            fetch('/comment', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    //  image_id: this.image_id,
+                    username: this.username,
+                    comment: this.comment,
+                    image_id: this.id
+                })
+            }).then(
+                response => response.json()
+            ).then(
+                response => {
+                    console.log("RESPONSE", response.rows[0])
+                    console.log("RESPONSE", this)
+                    this.allComments.push(response.rows[0])
+                    console.log("RESPONSE", this)
+                }
+            );
         }
-
     },
-    template:
-
-    /*
-    Make sure you render all comments inside your template
-    Modify the template for the modal component so that it renders the comments 
-    component inside and passes the image id to it! */
-        `   
+    template: `   
     <div class="comments">
-        <input type="text" name="username" id="username" class="hidden" placeholder="Username">
-        <input type="text" name="commentInput" id="comment" class="hidden" placeholder="Write your comment">
-        <button id="submitComment" class="hidden">Submit</button>
-        <p id="allComments" class="hidden">ALL COMMENTS SHOULD BE HERE </p>
+        <input type="text" name="username" v-model="username" id="username" class="hidden" placeholder="Username">
+        
+        <input type="text" name="commentInput" v-model="comment" id="comment" class="hidden" placeholder="Write your comment">
+
+        <button id="submitComment" class="hidden" @click="addComment">Submit</button>
+<div v-for="comment in allComments">
+        <p id="allComments">{{comment.username}}: {{comment.comment}}</p>
+ </div>       
     </div>
     `
 };

@@ -1,12 +1,14 @@
-const { DataBrew } = require('aws-sdk');
 const express = require('express');
 const app = express();
 const db = require("./db.js")
-app.use(express.static('./public'));
 const path = require("path"); // Core path module
 const uidSafe = require("uid-safe"); // Random string generator
 const multer = require("multer"); // Multer file data middleware
 const { upload } = require("./s3");
+
+app.use(express.static('./public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 
 // ======= Specify the storage location  =========//
 
@@ -62,7 +64,7 @@ app.post("/image", uploader.single("image"), upload /*"image" corresponds to you
 
 //==== FROM PART 1 =======
 
-app.use(express.json());
+
 app.get("/api/images", (req, res) => {
     db.getAllImagesData().then((data) => {
         res.json(data)
@@ -82,6 +84,33 @@ app.get('/image/:image_id', (req, res) => {
         res.json(image);
     });
 });
+
+app.get("/comments/:image_id", (req, res) => {
+    const image_id = req.params.image_id;
+    console.log(req.params)
+
+    db.getCommentsById(image_id).then((allComments) => {
+        console.log("ALL THE COOMMENTS ",
+            allComments)
+        res.json(allComments)
+    }).catch((error) => {
+        console.log("ERROR", error);
+    });
+})
+
+
+app.post("/comment", (req, res) => {
+    const { comment, username, image_id } = req.body
+    console.log("Post on comment")
+    console.log(req.body)
+    db.addComment(image_id, comment, username).
+    then((comment) => {
+        res.json(comment)
+    }).catch((error) => {
+        console.log("Error while adding comment ", error)
+    })
+
+})
 
 
 app.get('*', (req, res) => {

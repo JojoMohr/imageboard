@@ -13,7 +13,7 @@ CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
     comment VARCHAR NOT NULL,
     username VARCHAR NOT NULL,
-    title VARCHAR NOT NULL,
+    image_id INTEGER NOT NULL REFERENCES images(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
