@@ -2,7 +2,8 @@ const spicedPg = require("spiced-pg")
 const db = spicedPg('postgres:postgres:postgres@localhost:5432/imageboard');
 
 module.exports.getAllImagesData = (() => {
-    const query = `SELECT * FROM images ORDER BY id DESC`;
+    const query = `SELECT * FROM images ORDER BY id DESC 
+                   LIMIT 12`;
     return db.query(query).then((results) => results.rows)
 })
 
@@ -16,3 +17,9 @@ module.exports.uploadImage = ((url, username, title, description) => {
     const params = [url, username, title, description];
     return db.query(query, params);
 })
+
+module.exports.getImageById = function(id) {
+    const query = `SELECT * FROM images WHERE id = $1`;
+    const params = [id]
+    return db.query(query, params)
+}

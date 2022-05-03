@@ -34,32 +34,28 @@ app.post("/image", uploader.single("image"), upload /*"image" corresponds to you
     console.log("req.body:\t", req.body);
     // Multer puts the file info in `req.file`
     console.log("req.file:\t", req.file);
-
+    console.log("req.params.id", req.params.id)
     let url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`
     let username = req.body.username
     let description = req.body.description
     let title = req.body.title
     console.log("Find the IMG with this URL: ", url)
 
-    db.uploadImage(url, username, title, description).then((insertedImage) => {
-        console.log("IMAGE HAS BEEN UPLOADED 📥")
-        console.log("INSERTED IMAGE", insertedImage)
-            //  res.json(insertedImage.rows)
-    }).catch((error) => {
-        console.log("ERROR WHILE UPLOADING ❌📥", error)
-    });
-
-
-    // what we want to do at this point in time, is add the newly added img
-    // data to the database
-    // when that worked successfully we want to let the client side know
-    // and provide all the new image data
-    // if that did not work we should also let the client side know
-    // BELOW IS ONLY TEMP CODE
     if (req.file) {
-        res.json({ success: true });
+        // res.json({ success: true });
+
+        db.uploadImage(url, username, title, description).then((insertedImage) => {
+            console.log("IMAGE HAS BEEN UPLOADED 📥")
+            console.log("INSERTED IMAGE", insertedImage)
+            res.json(insertedImage.rows[0])
+        }).catch((error) => {
+            console.log("ERROR WHILE UPLOADING ❌📥", error)
+        });
+
     } else {
-        res.json({ success: false });
+        res.json({
+            success: false
+        });
     }
 });
 
@@ -73,9 +69,31 @@ app.get("/api/images", (req, res) => {
     })
 })
 
+app.get('/image/:image_id', (req, res) => {
+    console.log(req.params.image_id)
+    db.getImageById(req.params.image_id).then((image) => {
+        console.log("image im get request", image.rows)
+        if (!image) {
+            res.status(404).json({
+                message: "Image not found",
+            });
+            return;
+        }
+        res.json(image);
+    });
+});
+
 
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/index.html`);
 });
+
+
+//==== PART 3 =======
+//We need a new /images/:image_id endpoint, that retrieves the info for the given id"
+
+
+
+//======= = = = = = = = = = = = = = = = = =
 
 app.listen(8080, () => console.log(`Listening 🟢`));
