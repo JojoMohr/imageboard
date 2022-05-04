@@ -43,19 +43,23 @@ const myComponent = {
     template: `
         <div class="popupImageBorder">    </div>
         <div class="popupImage ">
-            <div id="closePopup"   v-if="selectedImage" :selected-image="selectedImage" id="X" @click="onCloseClick">🅧</div>
+            <div id="closePopup"   v-if="selectedImage" :selected-image="selectedImage" id="X" @click="onCloseClick"></div>
           
-           
-            <img :src="url" alt="Selected_image" @click="onCloseClick">
-          <div id="titleDescription">
-                <p id="title" class="hidden">{{title}}</p>
+            <img :src="url" alt="Selected_image" >
+           <div id="rightcolumn">
+
+              <div id="titleDescription">
+                <h2 id="title" class="hidden">{{title}}</h2>
                 <p id="description" class="hidden">{{description}}</p>
          </div>
-          
-         <p v-for="comment in comments" id="username" class="hidden">{
+          </div>
+          <div id="commentsection">
+            
+            <p v-for="comment in comments" id="username" class="hidden">{
             {username}}</p>
-             <comments-component :id="selectedImage"></comments-component>
-
+            
+            <comments-component :id="selectedImage"></comments-component>
+        </div>
         </div>
         
     `

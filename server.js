@@ -112,15 +112,32 @@ app.post("/comment", (req, res) => {
 
 })
 
-app.get("/loading", (req, res) => {
-    console.log("WE ARE IN /loading");
+app.get("/loadMoreImages/:lastImageId", (req, res) => {
+    console.log("WE ARE IN /:lastImageId");
+    const lastImageId = req.params.lastImageId;
+    console.log("REQ PARAMS", req.params);
 
-    db.loadMoreImages(lastImageId).then((data) => {
-        res.data.json()
-    }).catch((error) => {
-        console.log("ERROR IN GET REQUEST LOADING MORE IMAGES", error);
-    })
+    db.loadMoreImages(lastImageId)
+        .then((images) => {
+            console.log("MORE IMAGES COMING THROUGH", images);
+            if (lastImageId == 1) {
+                res.status(404).json({
+                    message: "NO MORE IMAGES",
+                });
+                return;
+            }
+            res.json(images)
+        }).catch((error) => {
+            console.log("ERROR IN GET REQUEST LOADING MORE IMAGES", error);
+        })
 })
+
+
+
+
+
+
+
 
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/index.html`);

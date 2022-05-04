@@ -15,6 +15,14 @@ const app = Vue.createApp({
     }, // CLOSES DATA 
 
     mounted() {
+        addEventListener("popstate", () => {
+            this.selectedImage = location.pathname.slice(1);
+        });
+        window.addEventListener("scroll", this.scroll);
+        const idFromUrl = location.pathname.slice(1);
+        this.selectedImage = idFromUrl;
+        console.log(this.selectedImage);
+
         fetch("/api/images").then((result) => {
             console.log("RESULTS", result)
             return result.json()
@@ -59,33 +67,31 @@ const app = Vue.createApp({
             console.log("this is image nr: ", image_id)
                 // this.$emit('clicked', selectedImage);
             this.selectedImage = image_id;
+            history.pushState({}, "", this.selectedImage);
+
 
         },
         onCloseClick() {
             this.selectedImage = null
             console.log("CLOSE app")
+            history.pushState({}, "", "/");
+
 
         },
         loadMoreImages() {
             console.log("LOADING MORE IMAGES ");
             let lastImageId = this.images[this.images.length - 1].id
-                // let lastImageId = lastImage.id
-                // console.log("LAST IMAGE", lastImage);
-
-            const myHeaders = new Headers();
-
-            myHeaders.append("lastImageId", lastImageId);
-
             console.log("LAST IMAGE ID", lastImageId);
-            fetch("/loading", {
-                method: "GET",
-                headers: myHeaders,
-            }).then((response) => {
-                console.log("THIS IS THE RESPONSE OF LOADING MORE", response);
+            fetch(`/loadMoreImages/${lastImageId}`)
+                .then((newImages) => {
+                    return newImages.json()
+                }).then((newImages) => {
 
-            }).catch((error) => {
-                console.log("ERROR IN LOADMOREIMAGES ", error);
-            })
+                    console.log("THIS IS THE RESPONSE OF LOADING MORE", newImages);
+                    this.images = [...this.images, ...newImages]
+                }).catch((error) => {
+                    console.log("ERROR IN LOADMOREIMAGES ", error);
+                })
 
 
         },

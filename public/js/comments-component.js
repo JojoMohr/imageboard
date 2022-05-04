@@ -51,17 +51,19 @@ const commentsComponent = {
             );
         }
     },
-    template: `   
-    <div class="comments">
-        <input type="text" name="username" v-model="username" id="username" class="hidden" placeholder="Username">
+    template: `  
+     <div class="comments"> 
+        <input class="uploadInput" type="text" name="username" v-model="username" id="username" class="hidden" placeholder="Username">
         
-        <input type="text" name="commentInput" v-model="comment" id="comment" class="hidden" placeholder="Write your comment">
+        <input class="uploadInput" type="text" name="commentInput" v-model="comment" id="comment" class="hidden" placeholder="Write your comment">
 
         <button id="submitComment" class="hidden" @click="addComment">Submit</button>
-        <div v-for="comment in allComments">
-        <p id="allComments">{{comment.username}}: {{comment.comment}}</p>
-        </div>       
     </div>
+       
+    <div v-for="comment in allComments">
+     <p id="allComments">{{comment.username}}: {{comment.comment}}</p>
+     </div>       
+   
     `
 };
 

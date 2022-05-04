@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <title>Finstergram</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,12 +23,13 @@
 
             <div id="uploader">
                 <form @submit="handleSubmit">
+                    <div>
+                        <input class="uploadInput" name="username" placeholder="Username" v-model="username" @change="handleFileChange" />
 
-                    <input name="username" placeholder="Username" v-model="username" @change="handleFileChange" />
+                        <input class="uploadInput" name="title" placeholder="Title" v-model="title" @change="handleFileChange" />
 
-                    <input name="title" placeholder="Title" v-model="title" @change="handleFileChange" />
-
-                    <input name="description" placeholder="Describe your Image" v-model="description" @change="handleFileChange" />
+                        <input class="uploadInput" name="description" placeholder="Describe your Image" v-model="description" @change="handleFileChange" />
+                    </div>
 
                     <input name="image" type="file" accept="image/*" @change="handleFileChange" />
                     <button>Submit</button>
@@ -42,13 +46,13 @@
                     <div id="border">
                         <div class="imwrapper">
                             <img :src="image.url" alt="{{image.description}}">
-                            <p id="title" class="hidden">{{image.title}}</p>
+                            <h3 id="title" class="hidden">{{image.title}}</h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <button @click="loadMoreImages">MORE</button>
+        <button id="more" v-if="images" @click="loadMoreImages">MORE</button>
 
     </div>
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
