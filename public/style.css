@@ -32,7 +32,7 @@ body {
 }
 
 img {
-    padding: 10px;
+    /* padding: 10px; */
     height: 300px;
     width: 300px;
     object-fit: cover;
@@ -80,8 +80,8 @@ img {
 .popupImage img {
     position: relative;
     top: 30px;
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
 }
 
 #closePopup {
@@ -145,6 +145,7 @@ button {
     background-color: #ffffff;
     padding: 5px;
     width: 480px;
+    border: solid 1px;
     box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
 }
 
@@ -155,10 +156,10 @@ button {
     position: relative;
     margin-bottom: 36px;
     top: 38px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     width: 480px;
-    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
-    border-radius: 70px;
+    box-shadow: 4px 2px 2px 1px rgb(0 0 0 / 20%);
+    border: solid 1px;
     height: 90px;
 }
 

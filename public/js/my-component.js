@@ -42,11 +42,14 @@ const myComponent = {
     },
     template: `
         <div class="popupImageBorder">    </div>
+
         <div class="popupImage ">
-            <div id="closePopup"   v-if="selectedImage" :selected-image="selectedImage" id="X" @click="onCloseClick"></div>
-          
+                   <div id="closePopup"   v-if="selectedImage" :selected-image="selectedImage" id="X" @click="onCloseClick"></div>
+
             <img :src="url" alt="Selected_image" >
-           <div id="rightcolumn">
+            
+            
+            <div id="rightcolumn">
 
               <div id="titleDescription">
                 <h2 id="title" class="hidden">{{title}}</h2>
