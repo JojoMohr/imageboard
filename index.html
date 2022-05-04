@@ -9,10 +9,11 @@
 
 <body>
     <div id="main">
-
+        <my-component v-if="selectedImage" :selected-image="selectedImage" @close="onCloseClick">
+        </my-component>
         <header>
             <div id="logo">
-                <!-- <img v-for="image in logo" :src="image.url" alt="Logo"> -->
+                <!-- <img src="https://www.canva.com/design/DAE_M5bS9vY/BmE5lGSpKhTMvERH2gwh7A/view?mode=prototype#ohne-titel" alt="Logo"> -->
                 <h1>Finstergram</h1>
             </div>
 
@@ -33,27 +34,23 @@
         </header>
 
 
-        <my-component v-if="selectedImage" :selected-image="selectedImage" @close="onCloseClick">
 
 
-        </my-component>
-
-
-
-
-
-
-        <div id="images">
-            <div @click="onClick(image.id)" id="image" v-for="image in images" :src="image.url" :alt="image.title">
-                <div id="border">
-                    <img :src="image.url" alt="{{image.description}}">
-                    <p id="title" class="hidden">{{image.title}}</p>
+        <div class="gridwrapper">
+            <div id="images">
+                <div @click="onClick(image.id)" id="image" v-for="image in images" :src="image.url" :alt="image.title">
+                    <div id="border">
+                        <div class="imwrapper">
+                            <img :src="image.url" alt="{{image.description}}">
+                            <p id="title" class="hidden">{{image.title}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <button @click="loadMoreImages">MORE</button>
 
     </div>
-    <button>MORE</button>
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
 

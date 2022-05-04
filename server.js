@@ -112,6 +112,15 @@ app.post("/comment", (req, res) => {
 
 })
 
+app.get("/loading", (req, res) => {
+    console.log("WE ARE IN /loading");
+
+    db.loadMoreImages(lastImageId).then((data) => {
+        res.data.json()
+    }).catch((error) => {
+        console.log("ERROR IN GET REQUEST LOADING MORE IMAGES", error);
+    })
+})
 
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/index.html`);

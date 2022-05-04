@@ -22,8 +22,9 @@ const app = Vue.createApp({
             console.log("RESPONSE", response)
             this.images = response;
         })
-        console.log("jetzt wollen wir mit dem server reden ")
-    }, // CLOSES MOUNTED 
+
+    },
+    // COMPONENTS ========================//
     components: {
         'my-component': myComponent,
     },
@@ -63,6 +64,29 @@ const app = Vue.createApp({
         onCloseClick() {
             this.selectedImage = null
             console.log("CLOSE app")
+
+        },
+        loadMoreImages() {
+            console.log("LOADING MORE IMAGES ");
+            let lastImageId = this.images[this.images.length - 1].id
+                // let lastImageId = lastImage.id
+                // console.log("LAST IMAGE", lastImage);
+
+            const myHeaders = new Headers();
+
+            myHeaders.append("lastImageId", lastImageId);
+
+            console.log("LAST IMAGE ID", lastImageId);
+            fetch("/loading", {
+                method: "GET",
+                headers: myHeaders,
+            }).then((response) => {
+                console.log("THIS IS THE RESPONSE OF LOADING MORE", response);
+
+            }).catch((error) => {
+                console.log("ERROR IN LOADMOREIMAGES ", error);
+            })
+
 
         },
 

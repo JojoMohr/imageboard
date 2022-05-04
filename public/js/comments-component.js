@@ -58,9 +58,9 @@ const commentsComponent = {
         <input type="text" name="commentInput" v-model="comment" id="comment" class="hidden" placeholder="Write your comment">
 
         <button id="submitComment" class="hidden" @click="addComment">Submit</button>
-<div v-for="comment in allComments">
+        <div v-for="comment in allComments">
         <p id="allComments">{{comment.username}}: {{comment.comment}}</p>
- </div>       
+        </div>       
     </div>
     `
 };

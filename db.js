@@ -3,7 +3,7 @@ const db = spicedPg('postgres:postgres:postgres@localhost:5432/imageboard');
 
 module.exports.getAllImagesData = (() => {
     const query = `SELECT * FROM images ORDER BY id DESC 
-                   LIMIT 3`;
+    LIMIT 12`;
     return db.query(query).then((results) => results.rows)
 })
 
@@ -37,16 +37,34 @@ module.exports.addComment = function(image_id, comment, username) {
 }
 
 
-// module.exports.getCommentsById = function(id) {
-//     const query = `SELECT * FROM comments WHERE image_id = $1`;
-//     const params = [id]
-//     return db.query(query, params)
-
-// }
-
 module.exports.getCommentsById = function(id) {
     console.log("getCommentsById");
     return db
         .query("SELECT * FROM comments WHERE image_id = $1", [id])
         .then((result) => result.rows);
+}
+
+
+// module.exports.loadMoreImages = lastId => db.query(
+
+//     `SELECT * FROM images
+//     WHERE id < $1
+//     ORDER BY id DESC
+//     LIMIT 10`, [lastId]
+// ).then(
+//     ({ rows }) => rows
+// );
+
+
+
+module.exports.loadMoreImages = function(lastImageId) {
+    console.log("LOADING MORE IMAGES IN DB");
+    db.query(
+        `SELECT * FROM images
+    WHERE id < $1
+    ORDER BY id DESC
+    LIMIT 10`, [lastImageId]
+    ).then(
+        ({ rows }) => rows
+    );
 }
